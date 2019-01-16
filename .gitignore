@@ -1,0 +1,7 @@
+dist
+build
+private
+internal_tmp
+NativeControlsDemo/lib/impl
+*.jar
+*.zip
