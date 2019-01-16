@@ -8,7 +8,7 @@ This should work on all platforms. For the NSelect widget, it will use native wi
 
 ## Installation
 
-Either install this library through Codename One Settings, or download it here, copy to your project's "lib" directory, and select "Codename One" > "Refresh CN1libs".
+Either install this library through Codename One Settings, or [download it here](bin/cn1-native-controls.cn1lib), copy to your project's "lib" directory, and select "Codename One" > "Refresh CN1libs".
 
 ## Usage
 
