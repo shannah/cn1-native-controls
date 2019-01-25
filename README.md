@@ -1,6 +1,6 @@
 # CN1 Native Controls
 
-This library will contain a few useful native controls for [Codename One](https://www.codenameone.com).  Currently (first release) it includes only a single control "NSelect", which is a native select widget.  This is mostly useful when deploying to Javascript since the lightweight alternatives (Picker, and ComboBox) don't quite give a native feel on that platform.
+This library will contain a few useful native controls for [Codename One](https://www.codenameone.com).  Currently it includes only two controls "NSelect", which is a native select widget, and "NTextField", which is a native text field.  NSelect is mostly useful when deploying to Javascript since the lightweight alternatives (Picker, and ComboBox) don't quite give a native feel on that platform.  NTextField was developed primarily to provide support for [native password managers](https://github.com/codenameone/CodenameOne/issues/2467).
 
 ## Requirements
 
@@ -10,7 +10,7 @@ This should work on all platforms. For the NSelect widget, it will use native wi
 
 Either install this library through Codename One Settings, or [download it here](bin/cn1-native-controls.cn1lib), copy to your project's "lib" directory, and select "Codename One" > "Refresh CN1libs".
 
-## Usage
+## NSelect Usage
 
 A basic usage example.
 
@@ -43,6 +43,49 @@ hi.add(select);
 
 hi.show();
 ~~~~
+
+## NTextField Usage
+
+A basic usage example.
+
+~~~~
+...
+hi.add("Text fields");
+hi.add("Username:");
+NTextField tf1 = new NTextField(TextField.USERNAME);
+System.out.println("Setting font to main light 15mm");
+tf1.getAllStyles().setFont(Font.createTrueTypeFont(Font.NATIVE_MAIN_LIGHT, 15f));
+System.out.println("Finished setting font");
+tf1.getAllStyles().setFgColor(0x003300);
+tf1.getAllStyles().setBgTransparency(255);
+tf1.getAllStyles().setBgColor(0xcccccc);
+tf1.getAllStyles().setAlignment(CENTER);
+hi.add(tf1);
+hi.add("Password:");
+NTextField tf2 = new NTextField(TextField.PASSWORD);
+hi.add(tf2);
+hi.add("Email:");
+NTextField emailField = new NTextField(TextField.EMAILADDR);
+hi.add(emailField);
+
+tf1.addActionListener(e->{
+    //tf2.setText(tf1.getText());
+});
+tf1.addChangeListener(e->{
+   result.setText(tf1.getText());
+   hi.revalidateWithAnimationSafety();
+});
+tf2.addActionListener(e->{
+    Log.p("Action listener fired on password field");
+    result.setText(tf2.getText());
+    hi.revalidateWithAnimationSafety();
+});
+tf2.addDoneListener(e->{
+    Log.p("Done was clicked!!!");
+});
+...
+~~~~
+
 
 ## Created by
 

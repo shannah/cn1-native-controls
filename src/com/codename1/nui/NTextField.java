@@ -32,7 +32,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- *
+ * A native text field widget that can be used, more or less, like a regular text field.  
+ * The benefit of a native text field is that it supports native password managers.  Therefore
+ * the primary use-case for NTextField is for username and password fields on login forms.
  * @author shannah
  */
 public class NTextField extends Container {
@@ -52,6 +54,10 @@ public class NTextField extends Container {
     private static Map<Integer,NTextField> activeMap = new HashMap<>();
     //private KeyboardListener keyboardListener = new KeyboardListener();
     
+    /**
+     * Creates a new text field.
+     * @param constraint Constraint.  Same valeus as {@TextArea#setConstraint(int)}.
+     */
     public NTextField(int constraint) {
         super(new BorderLayout(), "TextField");
         id = nextId++;
@@ -127,6 +133,11 @@ public class NTextField extends Container {
         return defaultField;
     }
     
+    /**
+     * @deprecated For internal use only
+     * @param index
+     * @return 
+     */
     public static int getFgColor(int index) {
         Component fld = activeMap.get(index);
         if (fld == null) {
@@ -135,6 +146,11 @@ public class NTextField extends Container {
         return fld.getStyle().getFgColor();
     }
     
+    /**
+     * @deprecated For internal use only
+     * @param index
+     * @return 
+     */
     public static int getBgColor(int index) {
         Component fld = activeMap.get(index);
         if (fld == null) {
@@ -154,11 +170,21 @@ public class NTextField extends Container {
         
     }
     
+    /**
+     * @deprecated For internal use only
+     * @param index
+     * @return 
+     */
     public static NTextField getInstance(int index) {
         return activeMap.get(index);
         
     }
     
+    /**
+     * @deprecated For internal use only
+     * @param index
+     * @return 
+     */
     public static Object getNativeFont(int index) {
         Component fld = activeMap.get(index);
         if (fld == null) {
@@ -175,6 +201,11 @@ public class NTextField extends Container {
         
     }
     
+    /**
+     * @deprecated For internal use only
+     * @param index
+     * @return 
+     */
     public static int getTextAlign(int index) {
         Component fld = activeMap.get(index);
         if (fld == null) {
@@ -197,6 +228,10 @@ public class NTextField extends Container {
         return peerComp;
     }
     
+    /**
+     * Sets the text in this text field.
+     * @param text 
+     */
     public void setText(String text) {
         if (isLightWeight) {
             lpeer().setText(text);
@@ -205,6 +240,10 @@ public class NTextField extends Container {
         }
     }
     
+    /**
+     * Gets the text in this field.
+     * @return 
+     */
     public String getText() {
         if (isLightWeight) {
             return lpeer().getText();
@@ -213,26 +252,52 @@ public class NTextField extends Container {
         }
     }
 
+    /**
+     * Adds action listener to be notified when editing ends.
+     * @param l 
+     */
     public void addActionListener(ActionListener l) {
         actionListeners.addListener(l);
     }
     
+    /**
+     * Removes actionlistener.
+     * @param l 
+     */
     public void removeActionListener(ActionListener l) {
         actionListeners.removeListener(l);
     }
     
+    /**
+     * Adds listener to be notified if Done is pressed.
+     * @param l 
+     */
     public void addDoneListener(ActionListener l) {
         actionListeners.addListener(l);
     }
     
+    /**
+     * Removes Done listener.
+     * @param l 
+     */
     public void removeDoneListener(ActionListener l) {
         actionListeners.removeListener(l);
     }
     
+    /**
+     * Adds listener to be notified whenever contents of field change.  This is different than
+     * an action event because action events are only fired in response to user action.  This event
+     * will fire even when text is changed programmatically.
+     * @param l 
+     */
     public void addChangeListener(ActionListener l) {
         actionListeners.addListener(l);
     }
     
+    /**
+     * Removes a change listener.
+     * @param l 
+     */
     public void removeChangeListener(ActionListener l) {
         actionListeners.removeListener(l);
     }
@@ -240,7 +305,10 @@ public class NTextField extends Container {
     
 
 
-   
+    /**
+     * @deprecated For internal use only.
+     * @param index 
+     */
     public static void requestFocus(int index) {
         NTextField fld = activeMap.get(index);
         if (fld == null) return;
@@ -248,6 +316,11 @@ public class NTextField extends Container {
     }
    
     
+    /**
+     * @deprecated For internal use only.
+     * @param idx
+     * @return 
+     */
     public static boolean isLastEdit(int idx) {
         try {
             NTextField fld = activeMap.get(idx);
@@ -317,6 +390,10 @@ public class NTextField extends Container {
     
     
 
+    /**
+     * @deprecated for internal use
+     * @param index 
+     */
     public static void fireActionEvent(int index) {
         if (!CN.isEdt()) {
             callSerially(()->fireActionEvent(index));
@@ -333,6 +410,10 @@ public class NTextField extends Container {
         actionListeners.fireActionEvent(new ActionEvent(this));
     }
     
+    /**
+     * @deprecated For internal use
+     * @param index 
+     */
     public static void fireChangeEvent(int index) {
         if (!CN.isEdt()) {
             callSerially(()->fireChangeEvent(index));
