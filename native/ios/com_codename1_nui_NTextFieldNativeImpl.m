@@ -254,22 +254,24 @@ extern float scaleValue;
     struct ThreadLocalData* threadStateData = CN1_THREAD_GET_STATE_PASS_SINGLE_ARG;
     enteringNativeAllocations();
     JAVA_OBJECT jfont = com_codename1_nui_NTextField_getNativeFont___int_R_java_lang_Object(CN1_THREAD_GET_STATE_PASS_ARG idx);
-    UIFont* font = (UIFont*)com_codename1_impl_ios_IOSImplementation_getFontPeer___com_codename1_impl_ios_IOSImplementation_NativeFont_R_long(threadStateData, jfont);
-    finishedNativeAllocations();
-    dispatch_async(dispatch_get_main_queue(), ^{
-        
-        utf.textAlignment = alignment == 4 ? NSTextAlignmentCenter :
-            alignment == 3 ? NSTextAlignmentRight : NSTextAlignmentLeft;
-        [utf setTextColor:UIColorFromRGB(fgColor, 255)];
-        [utf setBackgroundColor:UIColorFromRGB(bgColor, 255)];
-        float scale = scaleValue;
-        if(scale != 1) {
-            float s = font.pointSize / scale;
-            utf.font = [font fontWithSize:s];
-        } else {
-            utf.font = font;
-        }
-    });
+    if (jfont != JAVA_NULL) {
+        UIFont* font = (UIFont*)com_codename1_impl_ios_IOSImplementation_getFontPeer___com_codename1_impl_ios_IOSImplementation_NativeFont_R_long(threadStateData, jfont);
+        finishedNativeAllocations();
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            utf.textAlignment = alignment == 4 ? NSTextAlignmentCenter :
+                alignment == 3 ? NSTextAlignmentRight : NSTextAlignmentLeft;
+            [utf setTextColor:UIColorFromRGB(fgColor, 255)];
+            [utf setBackgroundColor:UIColorFromRGB(bgColor, 255)];
+            float scale = scaleValue;
+            if(scale != 1) {
+                float s = font.pointSize / scale;
+                utf.font = [font fontWithSize:s];
+            } else {
+                utf.font = font;
+            }
+        });
+    }
     
 }
 
