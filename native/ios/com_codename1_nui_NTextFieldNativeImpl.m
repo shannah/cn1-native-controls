@@ -271,6 +271,8 @@ extern float scaleValue;
                 utf.font = font;
             }
         });
+    } else {
+        finishedNativeAllocations();
     }
     
 }
